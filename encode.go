@@ -11,6 +11,10 @@ import (
 	"strconv"
 )
 
+var (
+	delimeter = "||"
+)
+
 func Marshal(v interface{}) ([]byte, error) {
 	buff := bytes.NewBuffer(nil)
 	err := NewEncoder(buff).Encode(v)
@@ -161,8 +165,8 @@ func encodeSpecs(specs []fieldSpec) (byt []byte, err error) {
 		} else {
 			data.Write(spec.value)
 		}
-		if idx != len(specs) {
-			data.WriteString("||")
+		if idx != len(specs)-1 {
+			data.WriteString(delimeter)
 		}
 	}
 	byt = data.Bytes()
